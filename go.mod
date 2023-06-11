@@ -2,8 +2,6 @@ module github.com/moqsien/wgcf
 
 go 1.20
 
-replace github.com/ViRb3/wgcf/openapi => ./openapi
-
 require (
 	github.com/ViRb3/optic-go v0.0.0-20220306155148-a12b96393ec7
 	github.com/ViRb3/sling/v2 v2.0.2
