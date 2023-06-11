@@ -1,18 +1,18 @@
-module github.com/ViRb3/wgcf
+module github.com/moqsien/wgcf
 
-go 1.18
+go 1.20
 
 replace github.com/ViRb3/wgcf/openapi => ./openapi
 
 require (
 	github.com/ViRb3/optic-go v0.0.0-20220306155148-a12b96393ec7
 	github.com/ViRb3/sling/v2 v2.0.2
-	github.com/ViRb3/wgcf/openapi v0.0.0-20220420142358-3d8d5a81187d
 	github.com/manifoldco/promptui v0.9.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.15.0
 	golang.org/x/crypto v0.8.0
+	golang.org/x/oauth2 v0.0.0-20221014153046-6fdb5e3db783
 	gopkg.in/yaml.v2 v2.4.0
 )
 
@@ -38,7 +38,6 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
 	golang.org/x/net v0.9.0 // indirect
-	golang.org/x/oauth2 v0.0.0-20221014153046-6fdb5e3db783 // indirect
 	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect

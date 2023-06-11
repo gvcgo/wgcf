@@ -1,14 +1,15 @@
 package cloudflare
 
 import (
+	"context"
 	"crypto/tls"
 	"net/http"
 	"time"
 
-	"github.com/ViRb3/wgcf/config"
-	"github.com/ViRb3/wgcf/openapi"
-	"github.com/ViRb3/wgcf/util"
-	"github.com/ViRb3/wgcf/wireguard"
+	"github.com/moqsien/wgcf/config"
+	openapi "github.com/moqsien/wgcf/oapi"
+	"github.com/moqsien/wgcf/util"
+	"github.com/moqsien/wgcf/wireguard"
 )
 
 const (
@@ -59,7 +60,7 @@ func MakeApiClient(authToken *string) *openapi.APIClient {
 func Register(publicKey *wireguard.Key, deviceModel string) (openapi.Register200Response, error) {
 	timestamp := util.GetTimestamp()
 	result, _, err := apiClient.DefaultApi.
-		Register(nil, ApiVersion).
+		Register(context.Background(), ApiVersion).
 		RegisterRequest(openapi.RegisterRequest{
 			FcmToken:  "", // not empty on actual client
 			InstallId: "", // not empty on actual client
@@ -76,7 +77,7 @@ type Device openapi.UpdateSourceDevice200Response
 
 func GetSourceDevice(ctx *config.Context) (*Device, error) {
 	result, _, err := globalClientAuth(ctx.AccessToken).DefaultApi.
-		GetSourceDevice(nil, ApiVersion, ctx.DeviceId).
+		GetSourceDevice(context.Background(), ApiVersion, ctx.DeviceId).
 		Execute()
 	castResult := Device{}
 	if err := util.Restructure(&result, &castResult); err != nil {
@@ -96,7 +97,7 @@ type Account openapi.GetAccount200Response
 
 func GetAccount(ctx *config.Context) (*Account, error) {
 	result, _, err := globalClientAuth(ctx.AccessToken).DefaultApi.
-		GetAccount(nil, ctx.DeviceId, ApiVersion).
+		GetAccount(context.Background(), ctx.DeviceId, ApiVersion).
 		Execute()
 	castResult := Account(result)
 	return &castResult, err
@@ -104,7 +105,7 @@ func GetAccount(ctx *config.Context) (*Account, error) {
 
 func UpdateLicenseKey(ctx *config.Context, newPublicKey string) (*openapi.UpdateAccount200Response, *Device, error) {
 	result, _, err := globalClientAuth(ctx.AccessToken).DefaultApi.
-		UpdateAccount(nil, ctx.DeviceId, ApiVersion).
+		UpdateAccount(context.Background(), ctx.DeviceId, ApiVersion).
 		UpdateAccountRequest(openapi.UpdateAccountRequest{License: ctx.LicenseKey}).
 		Execute()
 	if err != nil {
@@ -112,7 +113,7 @@ func UpdateLicenseKey(ctx *config.Context, newPublicKey string) (*openapi.Update
 	}
 	// change public key as per official client
 	result2, _, err := globalClientAuth(ctx.AccessToken).DefaultApi.
-		UpdateSourceDevice(nil, ApiVersion, ctx.DeviceId).
+		UpdateSourceDevice(context.Background(), ApiVersion, ctx.DeviceId).
 		UpdateSourceDeviceRequest(openapi.UpdateSourceDeviceRequest{Key: newPublicKey}).
 		Execute()
 	castResult := Device(result2)
@@ -126,7 +127,7 @@ type BoundDevice openapi.GetBoundDevices200Response
 
 func GetBoundDevices(ctx *config.Context) ([]BoundDevice, error) {
 	result, _, err := globalClientAuth(ctx.AccessToken).DefaultApi.
-		GetBoundDevices(nil, ctx.DeviceId, ApiVersion).
+		GetBoundDevices(context.Background(), ctx.DeviceId, ApiVersion).
 		Execute()
 	if err != nil {
 		return nil, err
@@ -160,7 +161,7 @@ func UpdateSourceBoundDeviceActive(ctx *config.Context, active bool) (*BoundDevi
 
 func UpdateSourceBoundDevice(ctx *config.Context, data openapi.UpdateBoundDeviceRequest) (*BoundDevice, error) {
 	result, _, err := globalClientAuth(ctx.AccessToken).DefaultApi.
-		UpdateBoundDevice(nil, ctx.DeviceId, ApiVersion, ctx.DeviceId).
+		UpdateBoundDevice(context.Background(), ctx.DeviceId, ApiVersion, ctx.DeviceId).
 		UpdateBoundDeviceRequest(data).
 		Execute()
 	if err != nil {
