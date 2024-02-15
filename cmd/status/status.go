@@ -3,9 +3,9 @@ package status
 import (
 	"log"
 
-	"github.com/moqsien/wgcf/cloudflare"
-	. "github.com/moqsien/wgcf/cmd/shared"
-	"github.com/moqsien/wgcf/util"
+	"github.com/gvcgo/wgcf/cloudflare"
+	. "github.com/gvcgo/wgcf/cmd/shared"
+	"github.com/gvcgo/wgcf/util"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )

@@ -1,4 +1,4 @@
-module github.com/moqsien/wgcf
+module github.com/gvcgo/wgcf
 
 go 1.20
 

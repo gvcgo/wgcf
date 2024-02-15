@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/moqsien/wgcf/config"
-	openapi "github.com/moqsien/wgcf/oapi"
-	"github.com/moqsien/wgcf/util"
-	"github.com/moqsien/wgcf/wireguard"
+	"github.com/gvcgo/wgcf/config"
+	openapi "github.com/gvcgo/wgcf/oapi"
+	"github.com/gvcgo/wgcf/util"
+	"github.com/gvcgo/wgcf/wireguard"
 )
 
 const (

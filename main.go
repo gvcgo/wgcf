@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/moqsien/wgcf/cmd"
-	"github.com/moqsien/wgcf/util"
+	"github.com/gvcgo/wgcf/cmd"
+	"github.com/gvcgo/wgcf/util"
 )
 
 func main() {
